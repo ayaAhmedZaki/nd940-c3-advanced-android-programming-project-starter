@@ -4,11 +4,19 @@
     <string name="action_settings">Settings</string>
 
 
-    <string name="notification_title">Udacity: Android Kotlin Nanodegree </string>
-    <string name="notification_description">The Project 3 repository is downloaded</string>
+    <string name="notification_title">Download</string>
+    <string name="notification_description">The Project {{FILE_NAME_REPO}} is downloaded</string>
     <string name="notification_button">See changes</string>
 
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="first_radioText">Glide_Image Loading by Bumptech</string>
+    <string name="second_radioText">LoadApp_Current repository by Udacity</string>
+    <string name="third_radioText">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc</string>
+    <string name="please_select_text">Please select the file to download</string>
+    <string name="file_name">File Name:</string>
+    <string name="file_status">status:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

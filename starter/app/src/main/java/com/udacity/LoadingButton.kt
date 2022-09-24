@@ -84,6 +84,9 @@ class LoadingButton @JvmOverloads constructor(
         paint.color = bgColor
         // draw custom button
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
+//        val color = Paint()
+//        color.color = Color.parseColor("#F9A825")
+//        canvas.drawArc(0f,0f,(width / 2).toFloat(), ((height + 30) / 2).toFloat(), (progress / 100.0).toFloat(), 360f, true, color)
 
         // to show rectangular progress on custom button while file is downloading
         if (buttonState == ButtonState.Loading) {
@@ -93,7 +96,8 @@ class LoadingButton @JvmOverloads constructor(
                 (width * (progress / 100)).toFloat(), height.toFloat(), paint
             )
             paint.color = Color.parseColor("#F9A825")
-            canvas.drawArc(rect, 0f, (360 * (progress / 100)).toFloat(), true, paint)
+            canvas.drawArc(10f,10f,(width /8).toFloat(), ((height-10)).toFloat(), 0f, (360 * (progress / 100)).toFloat(), true, paint)
+
         }
         // check the button state
         val buttonText = if (buttonState == ButtonState.Loading)

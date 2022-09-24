@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
                 //buttonState = ButtonState.Completed
               //loadingButton.buttonState = ButtonState.Completed
-                loadingButton.hasCompletedDownload()
+                loadingButton.completedDownload()
                 Toast.makeText(applicationContext, "Download Completed", Toast.LENGTH_SHORT).show()
                 val query = DownloadManager.Query()
                 query.setFilterById(downloadID)

@@ -31,7 +31,7 @@ class LoadingButton @JvmOverloads constructor(
         requestLayout()
     }
 
-    fun hasCompletedDownload() {
+    fun completedDownload() {
         valueAnimator.cancel()
         buttonState = ButtonState.Completed
         invalidate()

@@ -16,12 +16,10 @@ import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import com.udacity.notification.Status
-import com.udacity.notification.StatusViewModel
+import com.udacity.LoadingButton.Companion.buttonState
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     // private val notifyIntent = Intent(this, NotificationReceiver::class.java)
     private val REQUEST_CODE = 0
     lateinit var downloadManager: DownloadManager
-    private val viewModel: StatusViewModel by viewModels()
+   // var loadingButton = LoadingButton()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 //        )
 
         custom_button.setOnClickListener {
+            buttonState = ButtonState.Clicked
             if (radioGroup.checkedRadioButtonId === -1) {
                 Toast.makeText(
                     applicationContext,
@@ -79,6 +78,7 @@ class MainActivity : AppCompatActivity() {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
             //val status = "DOWNLOADED"
             if (downloadID == id) {
+                buttonState = ButtonState.Completed
                 Toast.makeText(applicationContext, "Download Completed", Toast.LENGTH_SHORT).show()
                 val query = DownloadManager.Query()
                 query.setFilterById(downloadID)
@@ -93,16 +93,13 @@ class MainActivity : AppCompatActivity() {
                     when (status) {
                         DownloadManager.STATUS_SUCCESSFUL -> {
                             Log.d("Status2", "STATUS_SUCCESSFUL")
-                            viewModel.setState(Status.SUCCESS)
                             STATUS = "SUCCESS"
-                            title =
-                                cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_TITLE))
+                            title = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_TITLE))
                             Log.d("TITLE", "$title")
 
                         }
                         DownloadManager.STATUS_FAILED -> {
                             Log.d("Status2", "STATUS_FAILED")
-                            viewModel.setState(Status.FAILED)
                             STATUS = "FAILED"
                         }
 //                    DownloadManager.STATUS_PAUSED -> {
@@ -138,6 +135,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun download() {
+        buttonState = ButtonState.Loading
         val request =
             DownloadManager.Request(Uri.parse(URL))
                 .setTitle(TITLE)

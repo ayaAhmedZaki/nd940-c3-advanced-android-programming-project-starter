@@ -1,30 +1,19 @@
 package com.udacity
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import com.udacity.notification.StatusViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 
 
 class DetailActivity : AppCompatActivity() {
 
-    // val viewModel: StatusViewModel by activityViewModels()
-    private val viewModel: StatusViewModel by viewModels()
-
-    //    private val viewModel: StatusViewModel by lazy {
-//        val activity = requireNotNull(this) {
-//            "You can only access the viewModel after onViewCreated()"
-//        }
-//        //The ViewModelProviders (plural) is deprecated.
-//       ViewModelProvider.of(this, DevByteViewModel.Factory(activity.application)).get(DevByteViewModel::class.java)
-//
-//    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -38,17 +27,26 @@ class DetailActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         Log.d("Details", "${intent.getStringExtra("FileStatus")}")
 
-        fileName.text = intent.getStringExtra("FileTitle")?:""
-        statusText.text = intent.getStringExtra("FileStatus")?:""
+        fileName.text = intent.getStringExtra("FileTitle") ?: ""
+        statusText.text = intent.getStringExtra("FileStatus") ?: ""
 
 
-        viewModel.state.observe(this, Observer {
-            // blank observe here
-            Log.d("Details", "observe${it.name}")
+        Handler(Looper.getMainLooper()).postDelayed({
+            motion_layout.setTransition(R.id.start, R.id.end)
+            motion_layout.setTransitionDuration(2000)
+            motion_layout.transitionToEnd()
+        }, 1000)
 
-        })
+        okBtn?.setOnClickListener {
+            finish()
+        }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

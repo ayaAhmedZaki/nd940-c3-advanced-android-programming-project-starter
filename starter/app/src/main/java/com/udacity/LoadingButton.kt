@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import kotlin.properties.Delegates
 
@@ -17,8 +18,25 @@ class LoadingButton @JvmOverloads constructor(
 
     private val valueAnimator = ValueAnimator()
 
-    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
-    }
+   companion object{
+       var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+           when(buttonState)
+           {
+               ButtonState.Clicked -> {
+                   Log.d("BUTTON" , "Clicked")
+
+               }
+               ButtonState.Loading -> {
+                   Log.d("BUTTON" , "loading")
+
+               }
+               ButtonState.Completed -> {
+                   Log.d("BUTTON" , "completed")
+
+               }
+           }
+       }
+   }
 
     private val boxBackgroundColor = resources.getColor(R.color.colorPrimary)
     private val textColor = Color.WHITE
